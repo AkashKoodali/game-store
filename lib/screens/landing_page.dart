@@ -12,24 +12,22 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BlocBuilder<GameDataBloc, GameDataState>(
-        builder: (context, state) {
-          if (state is GameDataInitialState) {
-            context.read<GameDataBloc>().add(LoadGameDataEvent());
-            return const Center(child:  CircularProgressIndicator());
-          } else if (state is GameDataLoadingState) {
-            return const Center(child:  CircularProgressIndicator());
-          } else if (state is GameDataLoadedState) {
-            return  buildGameModel(state.apiResult);
-          } else if (state is GameDataErrorState) {
-            return const Center(child:Text("somthing went wrong!"));
-          }
-          return const Center(child:  Text("Error"));
-        },
-      ),
-      ),
+    return Scaffold(
+      body: BlocBuilder<GameDataBloc, GameDataState>(
+      builder: (context, state) {
+        if (state is GameDataInitialState) {
+          context.read<GameDataBloc>().add(LoadGameDataEvent());
+          return const Center(child:  CircularProgressIndicator());
+        } else if (state is GameDataLoadingState) {
+          return const Center(child:  CircularProgressIndicator());
+        } else if (state is GameDataLoadedState) {
+          return  buildGameModel(state.apiResult);
+        } else if (state is GameDataErrorState) {
+          return const Center(child:Text("somthing went wrong!"));
+        }
+        return const Center(child:  Text("Error"));
+      },
+    ),
     );
     
     
